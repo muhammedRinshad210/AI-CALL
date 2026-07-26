@@ -1,65 +1,183 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title %}
-
-AI CALL
-
-{% endblock %}
+{% block title %}AI Call - Nova details{% endblock %}
 
 {% block content %}
+<main class="app-stage">
+    <section class="phone-frame" aria-label="AI Call mobile application">
+        <!-- iPhone hardware details and premium status bar -->
+        <div class="dynamic-island" aria-hidden="true"><span></span></div>
+        <div class="status-bar">
+            <time datetime="09:41">9:41</time>
+            <div class="status-icons" aria-label="Full signal, Wi-Fi connected, battery full">
+                <i class="bi bi-reception-4"></i>
+                <i class="bi bi-wifi"></i>
+                <i class="bi bi-battery-full"></i>
+            </div>
+        </div>
 
-<div class="container py-5">
+        <div class="phone-content app-content-blurred">
+            <!-- Header and profile action -->
+            <header class="app-header">
+                <div>
+                    <p class="eyebrow">Tuesday, July 26</p>
+                    <h1>Good morning, Alex <span aria-hidden="true">*</span></h1>
+                </div>
+                <button class="profile-button" type="button" aria-label="Open profile">
+                    <span>AR</span>
+                    <i class="bi bi-chevron-down"></i>
+                </button>
+            </header>
 
-<div class="row justify-content-center">
+            <!-- Primary call action -->
+            <article class="hero-card">
+                <div class="hero-glow"></div>
+                <div class="hero-copy">
+                    <span class="live-pill"><span class="live-dot"></span> AI is ready</span>
+                    <h2>Who would you like<br>to talk to?</h2>
+                    <p>Choose a companion and start a thoughtful conversation.</p>
+                    <button class="primary-button" type="button">
+                        <i class="bi bi-mic-fill"></i>
+                        Start a call
+                        <i class="bi bi-arrow-up-right"></i>
+                    </button>
+                </div>
+                <div class="hero-orb" aria-hidden="true"><span>*</span></div>
+            </article>
 
-<div class="col-md-4">
+            <!-- Search field -->
+            <label class="search-field">
+                <i class="bi bi-search"></i>
+                <input type="search" placeholder="Search AI companions" aria-label="Search AI companions">
+                <kbd>Cmd K</kbd>
+            </label>
 
-<div class="card shadow-lg rounded-5">
+            <!-- Favorite AI companions -->
+            <div class="section-heading">
+                <h2>Your companions</h2>
+                <button type="button" class="text-button">See all <i class="bi bi-arrow-up-right"></i></button>
+            </div>
 
-<div class="card-body p-4">
+            <div class="companions-grid">
+                <article class="companion-card">
+                    <div class="card-topline">
+                        <span class="online-status"><i></i> Online</span>
+                        <button class="more-button" type="button" aria-label="More options for Nova">
+                            <i class="bi bi-three-dots"></i>
+                        </button>
+                    </div>
+                    <div class="avatar avatar-nova">N<span class="avatar-spark">*</span></div>
+                    <h3>Nova</h3>
+                    <p>Creative partner</p>
+                    <button class="icon-call" type="button" aria-label="Call Nova">
+                        <i class="bi bi-telephone-fill"></i>
+                    </button>
+                </article>
 
-<h2 class="text-center fw-bold mb-4">
+                <article class="companion-card">
+                    <div class="card-topline">
+                        <span class="online-status"><i></i> Online</span>
+                        <button class="more-button" type="button" aria-label="More options for Sage">
+                            <i class="bi bi-three-dots"></i>
+                        </button>
+                    </div>
+                    <div class="avatar avatar-sage">S<span class="avatar-spark">*</span></div>
+                    <h3>Sage</h3>
+                    <p>Mindful guide</p>
+                    <button class="icon-call" type="button" aria-label="Call Sage">
+                        <i class="bi bi-telephone-fill"></i>
+                    </button>
+                </article>
 
-📞 AI CALL
+                <article class="companion-card">
+                    <div class="card-topline">
+                        <span class="online-status"><i></i> Online</span>
+                        <button class="more-button" type="button" aria-label="More options for Atlas">
+                            <i class="bi bi-three-dots"></i>
+                        </button>
+                    </div>
+                    <div class="avatar avatar-atlas">A<span class="avatar-spark">*</span></div>
+                    <h3>Atlas</h3>
+                    <p>Career coach</p>
+                    <button class="icon-call" type="button" aria-label="Call Atlas">
+                        <i class="bi bi-telephone-fill"></i>
+                    </button>
+                </article>
+            </div>
 
-</h2>
+            <!-- Recent activity -->
+            <div class="section-heading recent-heading">
+                <h2>Recent calls</h2>
+                <button type="button" class="text-button">History <i class="bi bi-arrow-up-right"></i></button>
+            </div>
+            <div class="recent-call">
+                <div class="mini-avatar avatar-nova">N</div>
+                <div class="recent-copy">
+                    <h3>Nova</h3>
+                    <p><i class="bi bi-arrow-up-right"></i> Yesterday, 8:42 PM</p>
+                </div>
+                <span class="call-duration">24 min</span>
+                <button class="recent-action" type="button" aria-label="Call Nova again">
+                    <i class="bi bi-telephone"></i>
+                </button>
+            </div>
+        </div>
 
-<div class="list-group">
+        <!-- Persistent mobile navigation -->
+        <nav class="bottom-nav app-content-blurred" aria-label="Main navigation">
+            <a href="#" class="active"><i class="bi bi-grid-1x2-fill"></i><span>Home</span></a>
+            <a href="#"><i class="bi bi-clock-history"></i><span>Activity</span></a>
+            <a href="#" class="nav-add" aria-label="New call"><i class="bi bi-plus-lg"></i></a>
+            <a href="#"><i class="bi bi-chat-square-text"></i><span>Messages</span></a>
+            <a href="#"><i class="bi bi-gear"></i><span>Settings</span></a>
+        </nav>
 
-<a href="#" class="list-group-item list-group-item-action">
+        <!-- AI contact details presentation -->
+        <section class="contact-details-screen" aria-label="Nova AI contact details">
+            <div class="contact-details-header">
+                <button class="contact-back" type="button" aria-label="Go back"><i class="bi bi-chevron-left"></i></button>
+                <span>Contact details</span>
+                <button class="contact-more" type="button" aria-label="More contact options"><i class="bi bi-three-dots"></i></button>
+            </div>
 
-👨‍💻 Coding Bro
+            <div class="contact-identity">
+                <figure class="contact-avatar">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=320&q=80" alt="Nova AI avatar">
+                    <span class="contact-online"></span>
+                </figure>
+                <h2>Nova</h2>
+                <p>Creative partner <span>•</span> Online</p>
+                <button class="contact-call-button" type="button"><i class="bi bi-telephone-fill"></i> Start a call</button>
+            </div>
 
-</a>
+            <div class="contact-scroll-area">
+                <article class="contact-about">
+                    <div class="contact-section-title"><h3>About Nova</h3><i class="bi bi-stars"></i></div>
+                    <p>Nova helps you turn half-formed ideas into clear plans, thoughtful writing, and your next creative breakthrough.</p>
+                </article>
 
-<a href="#" class="list-group-item list-group-item-action">
+                <section class="contact-section" aria-labelledby="skills-title">
+                    <div class="contact-section-title"><h3 id="skills-title">Skills</h3><button type="button">See all</button></div>
+                    <div class="skill-list"><span><i class="bi bi-lightbulb-fill"></i> Brainstorming</span><span><i class="bi bi-pencil-fill"></i> Writing</span><span><i class="bi bi-kanban-fill"></i> Planning</span></div>
+                </section>
 
-💼 Interview HR
+                <section class="contact-section" aria-labelledby="languages-title">
+                    <div class="contact-section-title"><h3 id="languages-title">Languages</h3></div>
+                    <div class="language-list"><span>English <small>Native</small></span><span>Spanish <small>Advanced</small></span><span>French <small>Conversational</small></span></div>
+                </section>
 
-</a>
+                <section class="contact-section conversations-section" aria-labelledby="conversations-title">
+                    <div class="contact-section-title"><h3 id="conversations-title">Recent conversations</h3><button type="button">View all</button></div>
+                    <div class="conversation-list">
+                        <article class="conversation-card"><span class="conversation-icon"><i class="bi bi-lightbulb"></i></span><div><h4>Finding a fresh direction</h4><p>Yesterday <span>•</span> 18 min</p></div><i class="bi bi-chevron-right conversation-arrow"></i></article>
+                        <article class="conversation-card"><span class="conversation-icon purple"><i class="bi bi-journal-text"></i></span><div><h4>Polish my presentation</h4><p>Monday <span>•</span> 24 min</p></div><i class="bi bi-chevron-right conversation-arrow"></i></article>
+                    </div>
+                </section>
+            </div>
+        </section>
 
-<a href="#" class="list-group-item list-group-item-action">
-
-🇬🇧 English Teacher
-
-</a>
-
-<a href="#" class="list-group-item list-group-item-action">
-
-💪 Fitness Coach
-
-</a>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
+        <div class="home-indicator" aria-hidden="true"></div>
+    </section>
+</main>
 {% endblock %}
