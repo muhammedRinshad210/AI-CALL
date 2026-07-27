@@ -1,0 +1,63 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title %}
+{{ contact.name }}
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="text-center">
+
+        <img
+            src="{{ contact.avatar }}"
+            alt="{{ contact.name }}"
+            style="width:120px;height:120px;border-radius:50%;object-fit:cover;"
+        >
+
+        <h1 class="mt-4">
+            {{ contact.name }}
+        </h1>
+
+        <h5 class="text-secondary">
+            {{ contact.role }}
+        </h5>
+
+        <p class="mt-3">
+            {{ contact.description }}
+        </p>
+
+        {% if contact.is_online %}
+
+            <span class="badge bg-success">
+                🟢 Online
+            </span>
+
+        {% else %}
+
+            <span class="badge bg-danger">
+                🔴 Offline
+            </span>
+
+        {% endif %}
+
+        <div class="mt-5">
+
+            <a
+                href="{% url 'calls:incoming' contact.pk %}"
+                class="btn btn-success btn-lg"
+            >
+
+                📞 Start Call
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

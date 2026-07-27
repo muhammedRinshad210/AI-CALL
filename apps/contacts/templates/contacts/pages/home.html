@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'layouts/base.html' %}
 {% load static %}
 
 {% block title %}AI Call - Nova details{% endblock %}
@@ -60,50 +60,11 @@
             </div>
 
             <div class="companions-grid">
-                <article class="companion-card">
-                    <div class="card-topline">
-                        <span class="online-status"><i></i> Online</span>
-                        <button class="more-button" type="button" aria-label="More options for Nova">
-                            <i class="bi bi-three-dots"></i>
-                        </button>
-                    </div>
-                    <div class="avatar avatar-nova">N<span class="avatar-spark">*</span></div>
-                    <h3>Nova</h3>
-                    <p>Creative partner</p>
-                    <button class="icon-call" type="button" aria-label="Call Nova">
-                        <i class="bi bi-telephone-fill"></i>
-                    </button>
-                </article>
-
-                <article class="companion-card">
-                    <div class="card-topline">
-                        <span class="online-status"><i></i> Online</span>
-                        <button class="more-button" type="button" aria-label="More options for Sage">
-                            <i class="bi bi-three-dots"></i>
-                        </button>
-                    </div>
-                    <div class="avatar avatar-sage">S<span class="avatar-spark">*</span></div>
-                    <h3>Sage</h3>
-                    <p>Mindful guide</p>
-                    <button class="icon-call" type="button" aria-label="Call Sage">
-                        <i class="bi bi-telephone-fill"></i>
-                    </button>
-                </article>
-
-                <article class="companion-card">
-                    <div class="card-topline">
-                        <span class="online-status"><i></i> Online</span>
-                        <button class="more-button" type="button" aria-label="More options for Atlas">
-                            <i class="bi bi-three-dots"></i>
-                        </button>
-                    </div>
-                    <div class="avatar avatar-atlas">A<span class="avatar-spark">*</span></div>
-                    <h3>Atlas</h3>
-                    <p>Career coach</p>
-                    <button class="icon-call" type="button" aria-label="Call Atlas">
-                        <i class="bi bi-telephone-fill"></i>
-                    </button>
-                </article>
+                {% for contact in contacts %}
+                    {% include "contacts/partials/contact_card.html" with contact=contact %}
+                {% empty %}
+                    <p>No AI companions available.</p>
+            {% endfor %}
             </div>
 
             <!-- Recent activity -->

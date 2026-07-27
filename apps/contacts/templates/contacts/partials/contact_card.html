@@ -1,0 +1,19 @@
+<article class="companion-card">
+    <div class="card-topline">
+        <span class="online-status">
+            <i></i>
+            {% if contact.is_online %}Online{% else %}Offline{% endif %}
+        </span>
+    </div>
+
+    <div class="avatar">
+        <img src="{{ contact.avatar }}" alt="{{ contact.name }}">
+    </div>
+
+    <h3>{{ contact.name }}</h3>
+    <p>{{ contact.role }}</p>
+
+    <a href="{% url 'contacts:contact_details' contact.id %}" class="icon-call" aria-label="Call {{ contact.name }}">
+        <i class="bi bi-telephone-fill"></i>
+    </a>
+</article>

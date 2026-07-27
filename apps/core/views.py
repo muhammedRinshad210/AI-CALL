@@ -1,5 +1,11 @@
 from django.shortcuts import render
 
-def home(request):
+from apps.contacts.models import AIContact
 
-    return render(request,"core/home.html")
+
+def home(request):
+    return render(
+        request,
+        "contacts/pages/home.html",
+        {"contacts": AIContact.objects.all()},
+    )

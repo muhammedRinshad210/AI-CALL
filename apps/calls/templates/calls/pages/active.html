@@ -1,0 +1,10 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Active call with {{ contact.name }}{% endblock %}
+
+{% block content %}
+<main class="container py-5 text-center" aria-label="Active call with {{ contact.name }}">
+    <h1>Active call</h1>
+    <p>{{ contact.name }}</p>
+</main>
+{% endblock %}

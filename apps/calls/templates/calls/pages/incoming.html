@@ -1,0 +1,40 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title %}Calling {{ contact.name }}{% endblock %}
+
+{% block content %}
+<main class="incoming-call-page" aria-label="Incoming call from {{ contact.name }}">
+    <div class="incoming-call-glow" aria-hidden="true"></div>
+
+    <header class="incoming-call-header">
+        <a class="incoming-back-link" href="{% url 'contacts:contact_details' contact.pk %}" aria-label="Back to contact details">
+            <i class="bi bi-chevron-left"></i>
+        </a>
+        <span><i class="bi bi-shield-check"></i> AI Call</span>
+        <span class="incoming-call-time">now</span>
+    </header>
+
+    <section class="incoming-caller-profile">
+        <div class="incoming-avatar-pulse" aria-hidden="true"><span></span><span></span><span></span></div>
+        <figure class="incoming-caller-avatar">
+            <img src="{{ contact.avatar }}" alt="{{ contact.name }} avatar">
+        </figure>
+        <p class="incoming-call-label">Incoming Call...</p>
+        <h1>{{ contact.name }}</h1>
+        <p class="incoming-caller-role">{{ contact.role }}</p>
+        <p class="incoming-status"><span></span> Calling...</p>
+    </section>
+
+    <nav class="incoming-call-actions" aria-label="Call actions">
+        <a class="incoming-action incoming-decline" href="{% url 'calls:ended' contact.pk %}">
+            <i class="bi bi-telephone-x-fill"></i>
+            <span>Decline</span>
+        </a>
+        <a class="incoming-action incoming-accept" href="{% url 'calls:active' contact.pk %}">
+            <i class="bi bi-telephone-fill"></i>
+            <span>Accept</span>
+        </a>
+    </nav>
+</main>
+{% endblock %}
