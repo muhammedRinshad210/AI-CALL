@@ -15,10 +15,10 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from pathlib import Path
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+AI_PROVIDER = os.getenv("AI_PROVIDER", "gemini").strip().lower()
 
 
 # Quick-start development settings - unsuitable for production
@@ -137,3 +137,13 @@ MEDIA_URL = "media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
 
+
+
+
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+AI_PROVIDER = os.getenv("AI_PROVIDER")

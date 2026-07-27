@@ -23,4 +23,10 @@ urlpatterns = [
         name="ended",
     ),
 
+    path(
+        "api/<int:pk>/",
+        views.ai_response,
+        name="api_response",
+    ),
+
 ]

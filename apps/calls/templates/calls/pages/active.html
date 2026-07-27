@@ -22,7 +22,7 @@
 
         <div class="active-live-speaking" aria-live="polite">
             <i class="bi bi-stars"></i>
-            <span>{{ contact.name }} is listening...</span>
+            <span id="ai-speaking-message">{{ contact.name }} is listening...</span>
         </div>
 
         <div class="active-live-wave" aria-label="Voice activity" role="img">
@@ -33,6 +33,9 @@
     </section>
 
     <section class="active-live-controls" aria-label="Call controls">
+        <button class="active-live-control" id="speech-button" type="button" aria-label="Speak to Nova" aria-pressed="false">
+            <i class="bi bi-mic-fill"></i><span>Speak</span>
+        </button>
         <button class="active-live-control" type="button" aria-label="Mute microphone" aria-pressed="false">
             <i class="bi bi-mic-mute-fill"></i><span>Mute</span>
         </button>
@@ -71,6 +74,102 @@
                 control.classList.toggle('is-active', !pressed);
             });
         });
+
+        const aiMessage = document.getElementById('ai-speaking-message');
+        const speechButton = document.getElementById('speech-button');
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+        const setAiMessage = (message) => {
+            if (aiMessage) {
+                aiMessage.textContent = message;
+            }
+        };
+
+        const requestAiResponse = (userMessage) => {
+            setAiMessage('Nova is thinking...');
+
+            const endpoint = "{% url 'calls:api_response' contact.pk %}";
+
+            return fetch(`${endpoint}?message=${encodeURIComponent(userMessage)}`, {
+                method: 'GET',
+                headers: { Accept: 'application/json' }
+            })
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error('AI response request failed');
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    setAiMessage(data.message || 'I did not receive a response. Please try again.');
+                })
+                .catch(() => {
+                    setAiMessage('I could not reach Nova right now. Please try again.');
+                });
+        };
+
+        if (!SpeechRecognition) {
+            setAiMessage("Your browser doesn't support speech recognition.");
+            if (speechButton) {
+                speechButton.disabled = true;
+                speechButton.setAttribute('aria-disabled', 'true');
+            }
+        } else if (speechButton) {
+            const recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = 'en-US';
+
+            speechButton.addEventListener('click', () => {
+                try {
+                    recognition.start();
+                } catch (error) {
+                    if (error.name !== 'InvalidStateError') {
+                        setAiMessage('Unable to start listening. Please try again.');
+                    }
+                }
+            });
+
+            recognition.onstart = () => {
+                speechButton.setAttribute('aria-pressed', 'true');
+                speechButton.classList.add('is-active');
+                setAiMessage('Listening...');
+            };
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript.trim();
+                if (transcript) {
+                    requestAiResponse(transcript);
+                }
+            };
+
+            recognition.onerror = () => {
+                setAiMessage('I could not hear that. Please try again.');
+            };
+
+            recognition.onend = () => {
+                speechButton.setAttribute('aria-pressed', 'false');
+                speechButton.classList.remove('is-active');
+            };
+        }
+
+        fetch("{% url 'calls:api_response' contact.pk %}", {
+            headers: { Accept: 'application/json' }
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('AI response request failed');
+                }
+                return response.json();
+            })
+            .then((data) => {
+                if (aiMessage && data.message) {
+                    aiMessage.textContent = data.message;
+                }
+            })
+            .catch(() => {
+                // Keep the initial listening text when the API is unavailable.
+            });
     })();
 </script>
 {% endblock %}
