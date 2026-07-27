@@ -1,10 +1,60 @@
 {% extends "layouts/base.html" %}
 
-{% block title %}Call ended{% endblock %}
+{% block title %}Call summary with {{ contact.name }}{% endblock %}
 
 {% block content %}
-<main class="container py-5 text-center" aria-label="Call ended">
-    <h1>Call ended</h1>
-    <p>Your call with {{ contact.name }} has ended.</p>
+<main class="call-summary-page" aria-label="Call summary with {{ contact.name }}">
+    <header class="call-summary-header">
+        <a href="{% url 'contacts:home' %}" class="call-summary-back" aria-label="Back home"><i class="bi bi-chevron-left"></i></a>
+        <span>Call summary</span>
+        <i class="bi bi-check2-circle call-summary-complete" aria-hidden="true"></i>
+    </header>
+
+    <section class="call-summary-identity">
+        <figure class="call-summary-avatar">
+            <img src="{{ contact.avatar }}" alt="{{ contact.name }} avatar">
+        </figure>
+        <h1>{{ contact.name }}</h1>
+        <p>{{ contact.role }}</p>
+        <span class="call-summary-ended"><i class="bi bi-telephone-x-fill"></i> Call ended</span>
+        <time datetime="PT24M18S">24 min 18 sec</time>
+    </section>
+
+    <div class="call-summary-content">
+        <article class="call-summary-card call-summary-ai-card">
+            <div class="call-summary-card-heading"><span><i class="bi bi-stars"></i> AI Summary</span><small>Just now</small></div>
+            <p>We explored a clear direction for your next creative project and shaped the first steps into an actionable plan.</p>
+        </article>
+
+        <article class="call-summary-card">
+            <div class="call-summary-card-heading"><span><i class="bi bi-chat-left-text-fill"></i> Conversation highlights</span></div>
+            <ul class="call-summary-points">
+                <li>Defined the core idea and the audience it should serve.</li>
+                <li>Turned loose thoughts into three practical milestones.</li>
+                <li>Set a small first action to complete this week.</li>
+            </ul>
+        </article>
+
+        <article class="call-summary-card call-summary-suggestions">
+            <div class="call-summary-card-heading"><span><i class="bi bi-lightbulb-fill"></i> Next suggestions</span></div>
+            <div class="call-summary-suggestion"><i class="bi bi-journal-plus"></i><span>Draft a one-page project brief</span><i class="bi bi-chevron-right"></i></div>
+            <div class="call-summary-suggestion"><i class="bi bi-calendar3"></i><span>Schedule a 30-minute focus block</span><i class="bi bi-chevron-right"></i></div>
+        </article>
+
+        <section class="call-summary-rating" aria-label="Rate this call">
+            <p>How was your conversation?</p>
+            <div class="call-summary-emojis">
+                <button type="button" aria-label="Poor conversation">😕</button>
+                <button type="button" aria-label="Okay conversation">🙂</button>
+                <button type="button" aria-label="Good conversation">😊</button>
+                <button type="button" aria-label="Excellent conversation">🤩</button>
+            </div>
+        </section>
+    </div>
+
+    <div class="call-summary-actions">
+        <a class="call-summary-call-again" href="{% url 'calls:incoming' contact.pk %}"><i class="bi bi-telephone-fill"></i> Call Again</a>
+        <a class="call-summary-home" href="{% url 'contacts:home' %}">Back Home <i class="bi bi-arrow-up-right"></i></a>
+    </div>
 </main>
 {% endblock %}

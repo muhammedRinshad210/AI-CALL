@@ -3,8 +3,74 @@
 {% block title %}Active call with {{ contact.name }}{% endblock %}
 
 {% block content %}
-<main class="container py-5 text-center" aria-label="Active call with {{ contact.name }}">
-    <h1>Active call</h1>
-    <p>{{ contact.name }}</p>
+<main class="active-live-page" aria-label="Active call with {{ contact.name }}">
+    <div class="active-live-backdrop" aria-hidden="true"></div>
+
+    <header class="active-live-header">
+        <span><i class="bi bi-shield-check"></i> Secure AI call</span>
+        <button class="active-live-more" type="button" aria-label="More call options"><i class="bi bi-three-dots"></i></button>
+    </header>
+
+    <section class="active-live-profile">
+        <figure class="active-live-avatar">
+            <img src="{{ contact.avatar }}" alt="{{ contact.name }} avatar">
+            <span class="active-live-status-dot"></span>
+        </figure>
+        <p class="active-live-eyebrow">AI companion</p>
+        <h1>{{ contact.name }}</h1>
+        <time class="active-live-timer" id="active-call-timer" datetime="PT0S">00:00</time>
+
+        <div class="active-live-speaking" aria-live="polite">
+            <i class="bi bi-stars"></i>
+            <span>{{ contact.name }} is listening...</span>
+        </div>
+
+        <div class="active-live-wave" aria-label="Voice activity" role="img">
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+        </div>
+    </section>
+
+    <section class="active-live-controls" aria-label="Call controls">
+        <button class="active-live-control" type="button" aria-label="Mute microphone" aria-pressed="false">
+            <i class="bi bi-mic-mute-fill"></i><span>Mute</span>
+        </button>
+        <button class="active-live-control" type="button" aria-label="Use speaker" aria-pressed="false">
+            <i class="bi bi-volume-up-fill"></i><span>Speaker</span>
+        </button>
+        <button class="active-live-control" type="button" aria-label="Open keypad">
+            <i class="bi bi-grid-3x3-gap-fill"></i><span>Keypad</span>
+        </button>
+        <a class="active-live-end" href="{% url 'calls:ended' contact.pk %}" aria-label="End call">
+            <i class="bi bi-telephone-x-fill"></i><span>End call</span>
+        </a>
+    </section>
 </main>
+
+<script>
+    (() => {
+        const timer = document.getElementById('active-call-timer');
+        const startedAt = Date.now();
+
+        const updateTimer = () => {
+            const elapsed = Math.floor((Date.now() - startedAt) / 1000);
+            const minutes = String(Math.floor(elapsed / 60)).padStart(2, '0');
+            const seconds = String(elapsed % 60).padStart(2, '0');
+            timer.textContent = `${minutes}:${seconds}`;
+            timer.dateTime = `PT${elapsed}S`;
+        };
+
+        updateTimer();
+        window.setInterval(updateTimer, 1000);
+
+        document.querySelectorAll('.active-live-control').forEach((control) => {
+            control.addEventListener('click', () => {
+                const pressed = control.getAttribute('aria-pressed') === 'true';
+                control.setAttribute('aria-pressed', String(!pressed));
+                control.classList.toggle('is-active', !pressed);
+            });
+        });
+    })();
+</script>
 {% endblock %}
